@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Orders</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 10px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+
+<h1>Orders Admin</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Products Ordered</th>
+        </tr>
+    </thead>
+    <tbody id="ordersTable"></tbody>
+</table>
+
+<script>
+const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+const table = document.getElementById('ordersTable');
+
+orders.forEach(order => {
+    const row = document.createElement('tr');
+    const customerCell = document.createElement('td');
+    customerCell.textContent = order.customer;
+    const productsCell = document.createElement('td');
+    productsCell.textContent = order.products.join(", ");
+    row.appendChild(customerCell);
+    row.appendChild(productsCell);
+    table.appendChild(row);
+});
+</script>
+
+</body>
+</html>

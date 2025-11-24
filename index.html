@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Store</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 10px; }
+        h1 { text-align: center; }
+        .products-container { display: flex; flex-wrap: wrap; justify-content: center; }
+        .product { width: 45%; margin: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; text-align: center; }
+        .product img { width: 100%; max-width: 150px; height: 150px; object-fit: cover; border-radius: 5px; }
+        @media (max-width: 600px) { .product { width: 90%; } }
+        .order-button { margin-top: 10px; padding: 8px 15px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        input[type="text"] { width: 90%; padding: 5px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<h1>My Simple Store</h1>
+
+<input type="text" id="customerName" placeholder="Your Name">
+
+<div class="products-container">
+    <div class="product"><img src="images/product1.jpg" alt="Product 1"><br><input type="checkbox" id="product1" value="Product 1"><label for="product1"> Product 1</label></div>
+    <div class="product"><img src="images/product2.jpg" alt="Product 2"><br><input type="checkbox" id="product2" value="Product 2"><label for="product2"> Product 2</label></div>
+    <div class="product"><img src="images/product3.jpg" alt="Product 3"><br><input type="checkbox" id="product3" value="Product 3"><label for="product3"> Product 3</label></div>
+    <div class="product"><img src="images/product4.jpg" alt="Product 4"><br><input type="checkbox" id="product4" value="Product 4"><label for="product4"> Product 4</label></div>
+    <div class="product"><img src="images/product5.jpg" alt="Product 5"><br><input type="checkbox" id="product5" value="Product 5"><label for="product5"> Product 5</label></div>
+    <div class="product"><img src="images/product6.jpg" alt="Product 6"><br><input type="checkbox" id="product6" value="Product 6"><label for="product6"> Product 6</label></div>
+    <div class="product"><img src="images/product7.jpg" alt="Product 7"><br><input type="checkbox" id="product7" value="Product 7"><label for="product7"> Product 7</label></div>
+    <div class="product"><img src="images/product8.jpg" alt="Product 8"><br><input type="checkbox" id="product8" value="Product 8"><label for="product8"> Product 8</label></div>
+    <div class="product"><img src="images/product9.jpg" alt="Product 9"><br><input type="checkbox" id="product9" value="Product 9"><label for="product9"> Product 9</label></div>
+    <div class="product"><img src="images/product10.jpg" alt="Product 10"><br><input type="checkbox" id="product10" value="Product 10"><label for="product10"> Product 10</label></div>
+</div>
+
+<button class="order-button" onclick="submitOrder()">Submit Order</button>
+
+<script>
+function submitOrder() {
+    const name = document.getElementById('customerName').value.trim();
+    const selectedProducts = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => selectedProducts.push(cb.value));
+    if(name === '' || selectedProducts.length === 0){
+        alert("Please enter your name and select at least one product.");
+        return;
+    }
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    orders.push({customer: name, products: selectedProducts});
+    localStorage.setItem('orders', JSON.stringify(orders));
+    alert("Order received!");
+    document.getElementById('customerName').value = '';
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+}
+</script>
+
+</body>
+</html>
